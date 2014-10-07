@@ -11,8 +11,8 @@ servo.configure(PWM_OUT, 0.02, SERVO_MIN);
  
 // expects a value between 0.0 and 1.0
 function setServo(value) {
-  local scaledValue = value * (SERVO_MAX-SERVO_MIN) + SERVO_MIN;
-  servo.write(scaledValue);
+    local scaledValue = value * (SERVO_MAX-SERVO_MIN) + SERVO_MIN;
+    servo.write(scaledValue);
 }
  
 // expects a value between -80.0 and 80.0
@@ -29,30 +29,24 @@ function buttonPress()
     local state = button.read();
     if (state == 1) 
     {
-                server.log("Stressed detected from Arduino");
+        server.log("Stressed detected from Arduino");
         agent.send("stressed", 0);
-        
-    } else 
-    {
-        
-        
     }
 }
 
 function candy(){
-    
-        local state = button.read();
-            server.log("Candy dispensing");
+    local state = button.read();
+    server.log("Candy dispensing");
+
     if (state == 1) 
     {
-    setServo(1.0);
-    imp.sleep(0.7);
-    setServo(0.0);
+        setServo(1.0);
+        imp.sleep(0.7);
+        setServo(0.0);
     }
 }
  
 // Configure the button to call buttonPress() when the pin's state changes
- 
 button.configure(DIGITAL_IN_PULLUP, buttonPress);
 candybutton.configure(DIGITAL_IN_PULLUP, candy);
 candy();
